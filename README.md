@@ -43,7 +43,7 @@ jobby-app/
                                                                         #Header /index.js
 
 import {Component} from 'react'
-import {Redirect, Link, withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -60,34 +60,39 @@ class Header extends Component {
   }
   render() {
     return (
-      <div className="header-container">
-        <button
-          type="button"
-          className="header-logo-button"
-          onClick={this.onClickWebsiteLogo}
-        >
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-            alt="website logo"
-            className="header-logo"
-          />
-        </button>
-
-        <nav className="nav-links">
-          <Link to="/" className="nav-link">
-            <h1>Home</h1>
+      <div className="header">
+        <div className="header-content">
+          <Link to="/" className="header-logo-link">
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              alt="website logo"
+              className="header-logo"
+            />
           </Link>
-          <Link to="/jobs" className="nav-link">
-            <h1>Jobs</h1>
-          </Link>
-        </nav>
-        <button
-          type="button"
-          className="logout-button"
-          onClick={this.onClickLogout}
-        >
-          LogOut
-        </button>
+          <nav className="nav-links">
+            <ul className="nav-list">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/jobs" className="nav-link">
+                  Jobs
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="logout-button"
+                  onClick={this.onClickLogout}
+                >
+                  LogOut
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     )
   }
@@ -95,125 +100,114 @@ class Header extends Component {
 
 export default withRouter(Header)
 
+
                                                                             #Header /index.css 
 
-.header-container {
+
+.header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #1c1c2b; 
-  padding: 16px 24px;
-  box-sizing: border-box;
-  color: #ffffff;
+  justify-content: center;
+  background-color: #1c1c2b;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+
 .header-logo {
-  width: 150px;
+  height: 50px; 
+  width: auto;
 }
-.header-logo-button {
-  background-color: transparent;
+
+.header-logo-link {
+  text-decoration: none; 
 }
+
+/* Navigation Styling */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 16px;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 20px; 
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
 }
 
 .nav-link {
+  text-decoration: none; 
+  color: #ffffff; 
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; 
 }
 
 .nav-link:hover {
-  color: #2cc6c6; /* Highlight on hover */
+  color: #2cc6c6; 
 }
 
+/* Logout Button */
 .logout-button {
-  background-color: #f54394; 
-  border: none;
+  background-color: transparent; 
+  border: 1px solid #ffffff;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 10px 16px;
+  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: #dc357f;
+  background-color: #ffffff;
+  color: #1c1c2b; 
 }
 
-/* Extra Small Screens (less than 576px) */
-@media (max-width: 575px) {
-  .header-container {
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .nav-list {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 10px;
+    margin-top: 10px;
   }
 
-  .nav-links {
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .logout-button {
-    width: 100%;
-    max-width: 200px;
-  }
-}
-
-/* Small Screens (576px to 767px) */
-@media (min-width: 576px) and (max-width: 767px) {
-  .header-container {
-    padding: 12px 20px;
-  }
-
-  .nav-link {
-    font-size: 14px;
+  .nav-item {
+    margin: 0;
   }
 
   .logout-button {
-    padding: 8px 12px;
-    font-size: 13px;
+    font-size: 12px; /* Adjust font size for smaller screens */
+    padding: 5px 10px;
   }
 }
 
-/* Medium Screens (768px and above) */
-@media (min-width: 768px) {
-  .header-container {
-    padding: 16px 32px;
-  }
-
-  .nav-link {
-    font-size: 16px;
-  }
-
-  .logout-button {
-    padding: 10px 20px;
-    font-size: 14px;
+@media (min-width: 1200px) {
+  .header-content {
+    max-width: 1400px; /* Expand for larger screens */
   }
 }
 
-/* Large Screens (992px and above) */
-@media (min-width: 992px) {
-  .header-container {
-    padding: 20px 40px;
-  }
-
-  .nav-link {
-    font-size: 18px;
-  }
-
-  .logout-button {
-    padding: 12px 24px;
-    font-size: 16px;
-  }
-}
 
 
                                                                  #Home /index.js
@@ -1441,6 +1435,7 @@ class LoginForm extends Component {
           id="password"
           className="password-input-field"
           value={password}
+          placeholder="rahul@2021"
           onChange={this.onChangePassword}
         />
       </>
@@ -1459,6 +1454,7 @@ class LoginForm extends Component {
           id="username"
           className="username-input-field"
           value={username}
+          placeholder="rahul"
           onChange={this.onChangeUsername}
         />
       </>
